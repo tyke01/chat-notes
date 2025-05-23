@@ -1,0 +1,29 @@
+# <type>(<scope>): <short summary>
+# ↓ Example ↓
+# feat(camera): add streaming support via WebRTC
+
+# Optional body (after one blank line):
+# - Explain the motivation for the change
+# - Provide context or links if needed
+# - List any side effects or future tasks
+
+# Footer (optional):
+# - For breaking changes, add BREAKING CHANGE:
+# - For linked issues, use "Closes #123", "Fixes #456", etc.
+
+# ---------------------
+# Types:
+# feat     - New feature
+# fix      - Bug fix
+# docs     - Documentation change
+# style    - Code style (formatting, missing semi-colons, etc.)
+# refactor - Code change that neither fixes a bug nor adds a feature
+# perf     - Performance improvement
+# test     - Adding or correcting tests
+# chore    - Maintenance (build, deps, etc.)
+# ci       - CI/CD related changes
+# build    - Build system or external dependencies
+# revert   - Revert a previous commit
+# merge    - Merging branches
+
+# Scope is optional but helpful: (api, ui, db, camera, sensor, mqtt, etc.)
