@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ModeToggle } from "./dark-mode-toggle";
 import LogOutButton from "./logout-button";
 import { getUser } from "@/auth/server";
+import { SidebarTrigger } from "./ui/sidebar";
 
 const Header = async () => {
   const user = await getUser();
@@ -13,6 +14,7 @@ const Header = async () => {
       className="relative flex h-24 w-full items-center justify-between bg-popover px-3 sm:px-8"
       style={{ boxShadow: shadow }}
     >
+      <SidebarTrigger className="absolute left-1 top-1"/>
       <Link href="/" className="flex items-end gap-2">
         <Image src="/logo.png" alt="logo" height={40} width={40} priority />
         <h1 className="mb-1 flex flex-col text-2xl font-bold leading-6">
