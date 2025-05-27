@@ -4,9 +4,10 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "./dark-mode-toggle";
 import LogOutButton from "./logout-button";
+import { getUser } from "@/auth/server";
 
-const Header = () => {
-  const user = 1; // Replace with actual user data
+const Header = async () => {
+  const user = await getUser();
   return (
     <header
       className="relative flex h-24 w-full items-center justify-between bg-popover px-3 sm:px-8"

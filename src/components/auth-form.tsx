@@ -10,6 +10,7 @@ import { Button } from "./ui/button";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { loginAction, signUpAction } from "@/actions/users";
 
 interface Props {
   type: "login" | "signUp";
@@ -23,7 +24,41 @@ const AuthForm = ({ type }: Props) => {
   const [isPending, startTransition] = useTransition();
 
   const handleSubmit = (formData: FormData) => {
-    console.log(formData);
+    // console.log(formData);
+    startTransition(async () => {
+      const email = formData.get("email") as string;
+      const password = formData.get("password") as string;
+
+      let errorMessage;
+      let title;
+      let description;
+
+      if (isLoginForm) {
+        errorMessage = (await loginAction(email, password)).errorMessage;
+        title = "Logged In";
+        description = "You have successfully logged in.";
+      } else {
+        errorMessage = (await signUpAction(email, password)).errorMessage;
+        title = "Signed Up";
+        description =
+          "You have successfully signed up. Check your email for verification.";
+      }
+
+      if (!errorMessage) {
+        toast({
+          title,
+          description,
+          variant: "success",
+        });
+        router.replace("/");
+      } else {
+        toast({
+          title: "Error",
+          description: errorMessage,
+          variant: "destructive",
+        });
+      }
+    });
   };
 
   return (
@@ -80,7 +115,10 @@ const AuthForm = ({ type }: Props) => {
             : "Already have an account? "}
           <Link
             href={isLoginForm ? "/sign-up" : "/login"}
-            className={cn("text-blue-500 underline", isPending && "pointer-events-none opacity-50")}
+            className={cn(
+              "text-blue-500 underline",
+              isPending && "pointer-events-none opacity-50",
+            )}
             onClick={() => {
               startTransition(() => {
                 router.push(isLoginForm ? "/sign-up" : "/login");

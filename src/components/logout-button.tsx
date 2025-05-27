@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { logoutAction } from "@/actions/users";
 
 const LogOutButton = () => {
   const [loading, setLoading] = useState(false);
@@ -13,11 +14,9 @@ const LogOutButton = () => {
 
   const handleLogout = async () => {
     setLoading(true);
-    // Simulate a logout process
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    // Here you would typically call your logout function
-    const errMessage = null;
-    if (!errMessage) {
+    const { errorMessage } = await logoutAction();
+    
+    if (!errorMessage) {
       toast.toast({
         title: "Logged out",
         description: "You have been logged out successfully.",
@@ -27,7 +26,7 @@ const LogOutButton = () => {
     } else {
       toast.toast({
         title: "Error",
-        description: errMessage,
+        description: errorMessage,
         variant: "destructive",
       });
     }
