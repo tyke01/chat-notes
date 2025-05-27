@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import "@/styles/globals.css";
+import "./globals.css";
 
 import { ThemeProvider } from "@/providers/ThemeProvider";
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/header";
-
-
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
 
 export const metadata: Metadata = {
   title: "Chat notes",
@@ -19,21 +19,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={` antialiased`}
-      >
+      <body className={`antialiased`}>
         <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <SidebarProvider>
+            <AppSidebar />
             <div className="flex min-h-screen w-full flex-col">
               <Header />
-              <main className="flex flex-1 flex-col px-4 pt-10 xl:px-8">{children}</main>
+              <main className="flex flex-1 flex-col px-4 pt-10 xl:px-8">
+                {children}
+              </main>
             </div>
-            <Toaster />
-          </ThemeProvider>
+          </SidebarProvider>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );
